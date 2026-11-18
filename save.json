@@ -1,0 +1,23 @@
+{
+ "students": {
+  "Player 1": {
+   "stars": {
+    "0": 2,
+    "1": 1
+   },
+   "speed": 0,
+   "missed": {
+    "j": 1,
+    "f": 8,
+    "k": 2,
+    "d": 1
+   },
+   "lesson_done": true
+  }
+ },
+ "order": [
+  "Player 1"
+ ],
+ "last": "Player 1",
+ "lang": "km"
+}
