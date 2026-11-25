@@ -631,17 +631,19 @@ class Bug:
         if not words:
             ch = self.text
             col = finger_color(ch)
+            show = ch.upper()
             pulse = 1 + (0.08 * math.sin(t * 8) if target else 0)
             r = 21 * pulse
             if target:
                 circ(surf, WHITE, self.x + dx, self.y + 3, r + 7)
             circ(surf, col, self.x + dx, self.y + 3, r + 4)
             circ(surf, WHITE, self.x + dx, self.y + 3, r)
-            draw_text(surf, ch, 32, INK, (self.x + dx, self.y + 1), scale=pulse)
+            draw_text(surf, show, 32, INK, (self.x + dx, self.y + 1), scale=pulse)
         else:
             done, rest = self.text[:self.typed], self.text[self.typed:]
+            done, rest_show = done.upper(), rest.upper()
             s_done = text_surf(done, 30, (40, 160, 60)) if done else None
-            s_rest = text_surf(rest, 30, INK) if rest else None
+            s_rest = text_surf(rest_show, 30, INK) if rest else None
             wd = s_done.get_width() if s_done else 0
             wr = s_rest.get_width() if s_rest else 0
             pw, ph = wd + wr + 26, 44
@@ -659,7 +661,7 @@ class Bug:
                 x += wd
             if s_rest:
                 surf.blit(s_rest, (x, py + ph / 2 - s_rest.get_height() / 2))
-                cw = font(30).size(rest[0])[0]
+                cw = font(30).size(rest_show[0])[0]
                 pygame.draw.line(surf, finger_color(rest[0]), (x, py + ph - 7), (x + cw, py + ph - 7), 4)
 
 
@@ -2155,7 +2157,7 @@ class PlayScene(Scene):
             self.frog.shake = 0.3
             self.app.sfx.play("wrong")
             mx, my = self.frog.mouth()
-            self.parts.text(mx, my - 120, ch if ch.strip() else "space", (240, 70, 80), 30, 0.6, -60)
+            self.parts.text(mx, my - 120, ch.upper() if ch.strip() else "SPACE", (240, 70, 80), 30, 0.6, -60)
 
     def finish(self, win):
         self.state = "done"
